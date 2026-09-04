@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Assignment } from '../../types';
 import { Sparkles, Check } from 'lucide-react';
 
@@ -51,15 +51,26 @@ export const AssignmentTab: React.FC<AssignmentTabProps> = ({
         })
       });
       const data = await res.json();
+      if (!data.success && data.message) {
+        alert(data.message);
+      }
       if (data.questions && data.questions.length > 0) {
         setQuestions(data.questions);
         if (data.videoInfo?.title && !title) {
           setTitle(data.videoInfo.title);
         }
-        alert(`Successfully generated 10 Cambridge Stage 6 questions for "${data.videoInfo?.title || 'YouTube Audio'}"!`);
+        if (data.videoInfo?.transcript && !topicPrompt) {
+          setTopicPrompt(data.videoInfo.transcript);
+        }
+        if (data.success) {
+          alert(data.hasTranscript 
+            ? `Success! 10 Cambridge Stage 6 questions were generated based directly on the actual audio transcript!` 
+            : `Generated 10 Cambridge Stage 6 questions!`
+          );
+        }
       }
     } catch (err) {
-      alert("Error generating questions. Please try again.");
+      alert("Error generating questions. Please verify your Gemini API key in Settings.");
     } finally {
       setIsGenerating(false);
     }
@@ -173,12 +184,15 @@ export const AssignmentTab: React.FC<AssignmentTabProps> = ({
           </p>
 
           <div>
-            <input
-              type="text"
+            <label className="block text-xs font-bold text-indigo-950 uppercase mb-1">
+              Spoken Audio Transcript / Dialogue Notes
+            </label>
+            <textarea
+              rows={3}
               value={topicPrompt}
               onChange={(e) => setTopicPrompt(e.target.value)}
-              placeholder="Optional: Enter topic keywords or paste transcript notes"
-              className="w-full px-4 py-2.5 rounded-xl border border-blue-200 text-xs bg-white focus:border-blue-600"
+              placeholder="The spoken dialogue of the audio track. (Automatically extracted from YouTube captions if available, or you can paste your listening script / story text here!)"
+              className="w-full p-3 rounded-xl border border-blue-200 text-xs bg-white focus:border-blue-600 font-mono"
             />
           </div>
 

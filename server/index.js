@@ -95,10 +95,14 @@ app.post('/api/generate-questions', async (req, res) => {
   }
 
   const info = await getYouTubeInfo(youtubeUrl);
-  const questions = await generateQuestionsWithGemini(info, topicOrTranscript);
+  const result = await generateQuestionsWithGemini(info, topicOrTranscript);
   res.json({
     videoInfo: info,
-    questions
+    success: result.success,
+    hasTranscript: result.hasTranscript,
+    message: result.message,
+    error: result.error,
+    questions: result.questions
   });
 });
 

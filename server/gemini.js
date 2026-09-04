@@ -2,100 +2,119 @@ const db = require('./db');
 
 async function generateQuestionsWithGemini(youtubeInfo, optionalTranscriptOrTopic) {
   const settings = db.getSettings();
-  const apiKey = process.env.GEMINI_API_KEY || settings.geminiApiKey;
+  const apiKey = (process.env.GEMINI_API_KEY || settings.geminiApiKey || "").trim();
+
+  const transcript = youtubeInfo.transcript || optionalTranscriptOrTopic || "";
+
+  if (!apiKey) {
+    return {
+      success: false,
+      error: "MISSING_API_KEY",
+      message: "No Gemini API key found! Please go to the 'Settings' tab in the Teacher Portal and paste your Google Gemini API key.",
+      questions: getSmartTemplateQuestions(youtubeInfo.title || "Listening Comprehension")
+    };
+  }
 
   const prompt = `
-You are an expert Cambridge Primary English teacher designing an official Stage 6 (Ages 10-11, CEFR A2+/B1) Listening Comprehension Assessment for Vietnamese ESL/EFL students in Hanoi.
+You are an expert Cambridge Primary English examiner designing an authentic Stage 6 (Ages 10-11, CEFR A2+/B1) Listening Comprehension Assessment for primary students in Hanoi, Vietnam.
 
-Context of Audio Clip:
-Title: "${youtubeInfo.title || 'Educational Listening Audio'}"
+AUDIO CLIP CONTEXT:
+Title: "${youtubeInfo.title || 'Cambridge Listening Audio'}"
 Author/Channel: "${youtubeInfo.author || 'Educational Content'}"
-Topic or Video Info: "${optionalTranscriptOrTopic || youtubeInfo.title || 'Listening Comprehension'}"
 
-Instructions:
-1. Generate exactly 10 high quality Multiple Choice Questions (A, B, C, D) testing listening skills appropriate for Cambridge Stage 6:
-   - 3 Questions on Direct Retrieval / Factual Recall of details heard in the audio.
-   - 3 Questions on Vocabulary in Context (e.g. deduce meaning of words/phrases heard).
-   - 2 Questions on Inference and Deduction (reading between the lines from speaker's voice/words).
-   - 2 Questions on Main Idea, Author's Purpose, or Speaker's Attitude.
-2. The language must be clear, accessible, and grammatically impeccable for 10-11 year old Cambridge Stage 6 learners.
-3. Provide 4 distinct answer choices for each question (A, B, C, D). Ensure exactly ONE option is unambiguously correct.
-4. Return ONLY a valid JSON array of 10 question objects. Do not include markdown ticks, preamble, or commentary.
+SPOKEN TRANSCRIPT / DIALOGUE OF THE AUDIO TRACK:
+"""
+${transcript || "No transcript available. Use the title and educational listening themes."}
+"""
 
-JSON schema required:
+INSTRUCTIONS:
+1. Generate exactly 10 high-quality Multiple Choice Questions (A, B, C, D) based SPECIFICALLY on the spoken transcript / audio text above:
+   - 3 Questions on Direct Retrieval / Factual Recall of specific words, numbers, or details spoken in the audio.
+   - 3 Questions on Vocabulary in Context (e.g. deduce the meaning of challenging words used by the speaker).
+   - 2 Questions on Inference and Deduction (what can be inferred from the characters or speaker's dialogue).
+   - 2 Questions on Main Idea, Author's Purpose, or Speaker's Tone.
+2. The language must be appropriate for Cambridge Primary Stage 6 learners (Ages 10-11).
+3. Provide 4 distinct options (A, B, C, D) for each question, with exactly ONE correct answer.
+4. Return ONLY a valid JSON array of 10 question objects without markdown ticks or preambles.
+
+Required JSON format:
 [
   {
     "id": "q1",
-    "question": "Question text here?",
+    "question": "Question text based directly on the audio?",
     "options": ["Choice A", "Choice B", "Choice C", "Choice D"],
     "correctAnswer": "A",
     "skill": "Direct Retrieval",
-    "explanation": "Brief explanation of why this answer is correct."
-  },
-  ...
+    "explanation": "Why this answer is correct based on the transcript."
+  }
 ]
 `;
 
-  if (!apiKey) {
-    console.log("No Gemini API key configured. Generating smart Cambridge Stage 6 listening questions based on title...");
-    return getSmartTemplateQuestions(youtubeInfo.title || "Listening Comprehension");
-  }
+  const modelsToTry = ["gemini-2.5-flash", "gemini-1.5-flash", "gemini-2.0-flash"];
+  let lastError = null;
 
-  try {
-    const url = `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.5-flash:generateContent?key=${apiKey}`;
-    
-    const response = await fetch(url, {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        contents: [
-          {
-            parts: [{ text: prompt }]
+  for (const model of modelsToTry) {
+    try {
+      const url = `https://generativelanguage.googleapis.com/v1beta/models/${model}:generateContent?key=${apiKey}`;
+      const response = await fetch(url, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          contents: [{ parts: [{ text: prompt }] }],
+          generationConfig: {
+            temperature: 0.2,
+            responseMimeType: "application/json"
           }
-        ],
-        generationConfig: {
-          temperature: 0.3,
-          responseMimeType: "application/json"
-        }
-      })
-    });
+        })
+      });
 
-    if (!response.ok) {
-      const errText = await response.text();
-      console.error("Gemini API returned error:", response.status, errText);
-      return getSmartTemplateQuestions(youtubeInfo.title || "Listening Comprehension");
-    }
+      if (!response.ok) {
+        const errText = await response.text();
+        lastError = `Model ${model} error (${response.status}): ${errText}`;
+        console.error(lastError);
+        continue;
+      }
 
-    const data = await response.json();
-    const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
-    if (!rawText) {
-      return getSmartTemplateQuestions(youtubeInfo.title);
-    }
+      const data = await response.json();
+      const rawText = data.candidates?.[0]?.content?.parts?.[0]?.text;
+      if (!rawText) continue;
 
-    // Clean any potential markdown code blocks
-    let cleanJson = rawText.trim();
-    if (cleanJson.startsWith('```json')) {
-      cleanJson = cleanJson.replace(/^```json\s*/, '').replace(/\s*```$/, '');
-    } else if (cleanJson.startsWith('```')) {
-      cleanJson = cleanJson.replace(/^```\s*/, '').replace(/\s*```$/, '');
-    }
+      let cleanJson = rawText.trim();
+      if (cleanJson.startsWith('```json')) {
+        cleanJson = cleanJson.replace(/^```json\s*/, '').replace(/\s*```$/, '');
+      } else if (cleanJson.startsWith('```')) {
+        cleanJson = cleanJson.replace(/^```\s*/, '').replace(/\s*```$/, '');
+      }
 
-    const questions = JSON.parse(cleanJson);
-    if (Array.isArray(questions) && questions.length > 0) {
-      return questions.map((q, idx) => ({
-        id: `q${idx + 1}`,
-        question: q.question,
-        options: q.options || ["Option A", "Option B", "Option C", "Option D"],
-        correctAnswer: (q.correctAnswer || "A").toUpperCase(),
-        skill: q.skill || "Comprehension",
-        explanation: q.explanation || "Correct answer deduced from the audio."
-      }));
+      const questions = JSON.parse(cleanJson);
+      if (Array.isArray(questions) && questions.length > 0) {
+        return {
+          success: true,
+          hasTranscript: Boolean(transcript),
+          modelUsed: model,
+          questions: questions.map((q, idx) => ({
+            id: `q${idx + 1}`,
+            question: q.question,
+            options: q.options || ["Option A", "Option B", "Option C", "Option D"],
+            correctAnswer: (q.correctAnswer || "A").toUpperCase(),
+            skill: q.skill || "Comprehension",
+            explanation: q.explanation || "Correct answer deduced from the audio."
+          }))
+        };
+      }
+    } catch (err) {
+      lastError = err.message;
+      console.error(`Attempt with ${model} failed:`, err);
     }
-  } catch (err) {
-    console.error("Failed to generate with Gemini, falling back to Cambridge templates:", err);
   }
 
-  return getSmartTemplateQuestions(youtubeInfo.title || "Listening Comprehension");
+  // If all models failed
+  return {
+    success: false,
+    error: "API_CALL_FAILED",
+    message: `Gemini API call failed: ${lastError || 'Unknown error'}. Please verify your API key in Settings.`,
+    questions: getSmartTemplateQuestions(youtubeInfo.title || "Listening Comprehension")
+  };
 }
 
 function getSmartTemplateQuestions(title) {
