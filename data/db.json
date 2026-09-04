@@ -1,0 +1,263 @@
+{
+  "settings": {
+    "teacherPin": "2025",
+    "geminiApiKey": ""
+  },
+  "classes": [
+    {
+      "id": "class-6a",
+      "name": "Class 6A (Cambridge Eagles)",
+      "students": [
+        {
+          "id": "s-6a-01",
+          "name": "An Nguyen"
+        },
+        {
+          "id": "s-6a-02",
+          "name": "Bao Tran"
+        },
+        {
+          "id": "s-6a-03",
+          "name": "Chi Le"
+        },
+        {
+          "id": "s-6a-04",
+          "name": "Duc Pham"
+        },
+        {
+          "id": "s-6a-05",
+          "name": "Ha Hoang"
+        },
+        {
+          "id": "s-6a-06",
+          "name": "Linh Vu"
+        },
+        {
+          "id": "s-6a-07",
+          "name": "Minh Dang"
+        },
+        {
+          "id": "s-6a-08",
+          "name": "Phuong Mai"
+        },
+        {
+          "id": "s-6a-09",
+          "name": "Quang Huy"
+        },
+        {
+          "id": "s-6a-10",
+          "name": "Vy Tran"
+        }
+      ]
+    },
+    {
+      "id": "class-6b",
+      "name": "Class 6B (Cambridge Falcons)",
+      "students": [
+        {
+          "id": "s-6b-01",
+          "name": "Anh Khoa"
+        },
+        {
+          "id": "s-6b-02",
+          "name": "Bich Ngoc"
+        },
+        {
+          "id": "s-6b-03",
+          "name": "Gia Bao"
+        },
+        {
+          "id": "s-6b-04",
+          "name": "Huong Giang"
+        },
+        {
+          "id": "s-6b-05",
+          "name": "Khanh Linh"
+        },
+        {
+          "id": "s-6b-06",
+          "name": "Nam Phong"
+        },
+        {
+          "id": "s-6b-07",
+          "name": "Son Tung"
+        },
+        {
+          "id": "s-6b-08",
+          "name": "Thao My"
+        },
+        {
+          "id": "s-6b-09",
+          "name": "Tuan Kiet"
+        },
+        {
+          "id": "s-6b-10",
+          "name": "Yen Nhi"
+        }
+      ]
+    },
+    {
+      "id": "class-1788499628454",
+      "name": "5B6",
+      "students": []
+    }
+  ],
+  "assignment": {
+    "id": "assign-1",
+    "title": "The Great Barrier Reef: Ocean Giants & Coral Wonders",
+    "youtubeUrl": "https://www.youtube.com/watch?v=wbNeIn3vVKM",
+    "showVideo": false,
+    "maxListens": 2,
+    "instructions": "Listen attentively to the audio track. You have a maximum of 2 listens. When you are ready, answer all 10 Cambridge Stage 6 comprehension questions.",
+    "active": true,
+    "createdAt": "2026-09-04T03:08:12.600Z",
+    "questions": [
+      {
+        "id": "q1",
+        "question": "What is the primary natural habitat described in the audio?",
+        "options": [
+          "A tropical rainforest",
+          "A coral reef marine ecosystem",
+          "An arid desert canyon",
+          "A frozen polar ice shelf"
+        ],
+        "correctAnswer": "B",
+        "skill": "Direct Recall",
+        "explanation": "The speaker introduces the coral reef marine ecosystem as the central focus."
+      },
+      {
+        "id": "q2",
+        "question": "According to the speaker, why are coral reefs often called the 'rainforests of the sea'?",
+        "options": [
+          "Because heavy rain falls on them every day",
+          "Because they contain an immense variety of marine biodiversity",
+          "Because tall seaweed trees grow out of them",
+          "Because freshwater rivers flow directly through them"
+        ],
+        "correctAnswer": "B",
+        "skill": "Inference & Detail",
+        "explanation": "Reefs support extraordinary biodiversity, matching the species richness of rainforests."
+      },
+      {
+        "id": "q3",
+        "question": "What role do tiny algae (zooxanthellae) play in the survival of coral polyps?",
+        "options": [
+          "They clean the ocean surface from debris",
+          "They provide nutrients through photosynthesis",
+          "They act as shields against predator sharks",
+          "They freeze water to create solid rock"
+        ],
+        "correctAnswer": "B",
+        "skill": "Detail Retrieval",
+        "explanation": "The algae convert sunlight into essential food energy for the corals."
+      },
+      {
+        "id": "q4",
+        "question": "What meaning of the word 'vibrant' best matches its use in the description of the reef fish?",
+        "options": [
+          "Loud and noisy",
+          "Brightly coloured and lively",
+          "Dangerous and poisonous",
+          "Heavy and slow"
+        ],
+        "correctAnswer": "B",
+        "skill": "Vocabulary in Context",
+        "explanation": "In Cambridge Stage 6 contexts, 'vibrant' describes brilliant, radiant colours and energetic life."
+      },
+      {
+        "id": "q5",
+        "question": "Which creature uses camouflage to blend seamlessly into the sandy seafloor?",
+        "options": [
+          "The clownfish",
+          "The stingray and flatfish",
+          "The giant manta ray",
+          "The blue whale"
+        ],
+        "correctAnswer": "B",
+        "skill": "Direct Recall",
+        "explanation": "Stingrays and flatfish use coloration to conceal themselves in sand."
+      },
+      {
+        "id": "q6",
+        "question": "What warning does the narrator give regarding rising ocean temperatures?",
+        "options": [
+          "Corals may undergo bleaching and lose their vital algae",
+          "Reefs will expand uncontrollably toward the shore",
+          "Fish will permanently abandon the oceans for rivers",
+          "The ocean water will evaporate completely"
+        ],
+        "correctAnswer": "A",
+        "skill": "Cause & Effect",
+        "explanation": "Warm waters stress corals, expelling algae and resulting in coral bleaching."
+      },
+      {
+        "id": "q7",
+        "question": "What can be inferred about the narrator's tone throughout the presentation?",
+        "options": [
+          "Bored and disinterested",
+          "Alarmist and aggressive",
+          "Passionate, informative, and inspiring",
+          "Humorous and silly"
+        ],
+        "correctAnswer": "C",
+        "skill": "Tone & Perspective",
+        "explanation": "The presenter speaks with enthusiasm, scientific care, and conservation respect."
+      },
+      {
+        "id": "q8",
+        "question": "In the phrase 'fragile equilibrium', what does 'equilibrium' mean?",
+        "options": [
+          "A state of balance",
+          "An aggressive conflict",
+          "A deep ocean trench",
+          "An ancient mystery"
+        ],
+        "correctAnswer": "A",
+        "skill": "Vocabulary in Context",
+        "explanation": "Equilibrium means a delicate, interconnected balance in nature."
+      },
+      {
+        "id": "q9",
+        "question": "Which of the following actions was recommended to help preserve coral reefs?",
+        "options": [
+          "Collecting living corals as travel souvenirs",
+          "Reducing plastic waste and lowering carbon emissions",
+          "Introducing foreign predator species",
+          "Building deeper artificial marinas directly on reefs"
+        ],
+        "correctAnswer": "B",
+        "skill": "Direct Recall",
+        "explanation": "Responsible conservation requires cutting carbon emissions and plastic pollution."
+      },
+      {
+        "id": "q10",
+        "question": "What is the overall main purpose of this listening audio?",
+        "options": [
+          "To advertise holiday resorts and diving equipment",
+          "To entertain listeners with fictional legends",
+          "To educate students on reef ecosystems and advocate for ocean protection",
+          "To criticize marine biologists"
+        ],
+        "correctAnswer": "C",
+        "skill": "Main Purpose",
+        "explanation": "The core aim is educational awareness and inspiring stewardship of marine habitats."
+      }
+    ]
+  },
+  "submissions": [
+    {
+      "id": "sub-s-6a-01-1788499806789",
+      "studentId": "s-6a-01",
+      "studentName": "An Nguyen",
+      "classId": "class-6a",
+      "assignmentId": "assign-1",
+      "listensUsed": 1,
+      "maxListens": 2,
+      "completed": false,
+      "answers": {},
+      "score": null,
+      "startedAt": "2026-09-04T05:30:06.789Z",
+      "completedAt": null
+    }
+  ]
+}

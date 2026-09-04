@@ -1,0 +1,18 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  body {
+    @apply bg-slate-50 text-slate-900 antialiased selection:bg-blue-200;
+  }
+}
+
+@keyframes bounceBar {
+  0%, 100% { height: 6px; }
+  50% { height: 32px; }
+}
+
+.wave-bar {
+  animation: bounceBar 0.8s ease-in-out infinite;
+}
