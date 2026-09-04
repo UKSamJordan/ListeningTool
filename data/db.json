@@ -5,101 +5,208 @@
   },
   "classes": [
     {
-      "id": "class-6a",
-      "name": "Class 6A (Cambridge Eagles)",
-      "students": [
-        {
-          "id": "s-6a-01",
-          "name": "An Nguyen"
-        },
-        {
-          "id": "s-6a-02",
-          "name": "Bao Tran"
-        },
-        {
-          "id": "s-6a-03",
-          "name": "Chi Le"
-        },
-        {
-          "id": "s-6a-04",
-          "name": "Duc Pham"
-        },
-        {
-          "id": "s-6a-05",
-          "name": "Ha Hoang"
-        },
-        {
-          "id": "s-6a-06",
-          "name": "Linh Vu"
-        },
-        {
-          "id": "s-6a-07",
-          "name": "Minh Dang"
-        },
-        {
-          "id": "s-6a-08",
-          "name": "Phuong Mai"
-        },
-        {
-          "id": "s-6a-09",
-          "name": "Quang Huy"
-        },
-        {
-          "id": "s-6a-10",
-          "name": "Vy Tran"
-        }
-      ]
-    },
-    {
-      "id": "class-6b",
-      "name": "Class 6B (Cambridge Falcons)",
-      "students": [
-        {
-          "id": "s-6b-01",
-          "name": "Anh Khoa"
-        },
-        {
-          "id": "s-6b-02",
-          "name": "Bich Ngoc"
-        },
-        {
-          "id": "s-6b-03",
-          "name": "Gia Bao"
-        },
-        {
-          "id": "s-6b-04",
-          "name": "Huong Giang"
-        },
-        {
-          "id": "s-6b-05",
-          "name": "Khanh Linh"
-        },
-        {
-          "id": "s-6b-06",
-          "name": "Nam Phong"
-        },
-        {
-          "id": "s-6b-07",
-          "name": "Son Tung"
-        },
-        {
-          "id": "s-6b-08",
-          "name": "Thao My"
-        },
-        {
-          "id": "s-6b-09",
-          "name": "Tuan Kiet"
-        },
-        {
-          "id": "s-6b-10",
-          "name": "Yen Nhi"
-        }
-      ]
-    },
-    {
       "id": "class-1788499628454",
       "name": "5B6",
-      "students": []
+      "students": [
+        {
+          "id": "class-1788499628454-1",
+          "name": "Nguyễn Khải Anh"
+        },
+        {
+          "id": "class-1788499628454-2",
+          "name": "Nguyễn Phúc Anh"
+        },
+        {
+          "id": "class-1788499628454-3",
+          "name": "Nguyễn Tạ Diệu Anh"
+        },
+        {
+          "id": "class-1788499628454-4",
+          "name": "Dương Đoàn Chí Bảo"
+        },
+        {
+          "id": "class-1788499628454-5",
+          "name": "Lê Đỗ Hải Đăng"
+        },
+        {
+          "id": "class-1788499628454-6",
+          "name": "Trần Trúc Diễm"
+        },
+        {
+          "id": "class-1788499628454-7",
+          "name": "Cao Tiến Dũng"
+        },
+        {
+          "id": "class-1788499628454-8",
+          "name": "Nguyễn Bảo Hân"
+        },
+        {
+          "id": "class-1788499628454-9",
+          "name": "Nguyễn Phú Gia Hân"
+        },
+        {
+          "id": "class-1788499628454-10",
+          "name": "Hoàng Nhã Khanh"
+        },
+        {
+          "id": "class-1788499628454-11",
+          "name": "Nguyễn Gia Khôi"
+        },
+        {
+          "id": "class-1788499628454-12",
+          "name": "Trần Trung Kiên"
+        },
+        {
+          "id": "class-1788499628454-13",
+          "name": "Hoàng Tuệ Lâm"
+        },
+        {
+          "id": "class-1788499628454-14",
+          "name": "Vũ Mai Lê"
+        },
+        {
+          "id": "class-1788499628454-15",
+          "name": "Đỗ Uyên Linh"
+        },
+        {
+          "id": "class-1788499628454-16",
+          "name": "Nguyễn Khánh Linh"
+        },
+        {
+          "id": "class-1788499628454-17",
+          "name": "Nguyễn Phương Linh"
+        },
+        {
+          "id": "class-1788499628454-18",
+          "name": "Kiều Anh Minh"
+        },
+        {
+          "id": "class-1788499628454-19",
+          "name": "Lê Tuấn Minh"
+        },
+        {
+          "id": "class-1788499628454-20",
+          "name": "Mai Hà Tuệ Minh"
+        },
+        {
+          "id": "class-1788499628454-21",
+          "name": "Đỗ Uyên Nhi"
+        },
+        {
+          "id": "class-1788499628454-22",
+          "name": "Nguyễn Thái Sơn"
+        },
+        {
+          "id": "class-1788499628454-23",
+          "name": "Lê Hiền Trang"
+        },
+        {
+          "id": "class-1788499628454-24",
+          "name": "Nguyễn Phúc Trường"
+        }
+      ]
+    },
+    {
+      "id": "class-1788500726905",
+      "name": "5B5",
+      "students": [
+        {
+          "id": "class-1788500726905-1",
+          "name": "Lưu Nguyễn Khánh An"
+        },
+        {
+          "id": "class-1788500726905-2",
+          "name": "Ngô Tâm An"
+        },
+        {
+          "id": "class-1788500726905-3",
+          "name": "Lương Thục Anh"
+        },
+        {
+          "id": "class-1788500726905-4",
+          "name": "Trần Hải Anh"
+        },
+        {
+          "id": "class-1788500726905-5",
+          "name": "Vũ Nguyễn Ngân Anh"
+        },
+        {
+          "id": "class-1788500726905-6",
+          "name": "Cấn Trần Quang Bách"
+        },
+        {
+          "id": "class-1788500726905-7",
+          "name": "Trần Minh Bảo"
+        },
+        {
+          "id": "class-1788500726905-8",
+          "name": "Nguyễn Khánh Chi"
+        },
+        {
+          "id": "class-1788500726905-9",
+          "name": "Đỗ Phương Dung"
+        },
+        {
+          "id": "class-1788500726905-10",
+          "name": "Phan Anh Dũng"
+        },
+        {
+          "id": "class-1788500726905-11",
+          "name": "Nguyễn Mai Thuỳ Dương"
+        },
+        {
+          "id": "class-1788500726905-12",
+          "name": "Phạm Liên Hoa"
+        },
+        {
+          "id": "class-1788500726905-13",
+          "name": "Tô Huy"
+        },
+        {
+          "id": "class-1788500726905-14",
+          "name": "Hoàng Lâm Hy"
+        },
+        {
+          "id": "class-1788500726905-15",
+          "name": "Nguyễn Tùng Lâm"
+        },
+        {
+          "id": "class-1788500726905-16",
+          "name": "Nguyễn Phương Lan"
+        },
+        {
+          "id": "class-1788500726905-17",
+          "name": "Lê Thiên Minh"
+        },
+        {
+          "id": "class-1788500726905-18",
+          "name": "Lê Thái Bảo Ngọc"
+        },
+        {
+          "id": "class-1788500726905-19",
+          "name": "Trần Hồ Minh Nguyệt"
+        },
+        {
+          "id": "class-1788500726905-20",
+          "name": "Nguyễn Hoàng Phúc"
+        },
+        {
+          "id": "class-1788500726905-21",
+          "name": "Nguyễn Hữu Phương"
+        },
+        {
+          "id": "class-1788500726905-22",
+          "name": "Trần Hoàng Sang"
+        },
+        {
+          "id": "class-1788500726905-23",
+          "name": "Đỗ Đoan Trang"
+        },
+        {
+          "id": "class-1788500726905-24",
+          "name": "Choi Chu Won"
+        }
+      ]
     }
   ],
   "assignment": {
@@ -244,20 +351,5 @@
       }
     ]
   },
-  "submissions": [
-    {
-      "id": "sub-s-6a-01-1788499806789",
-      "studentId": "s-6a-01",
-      "studentName": "An Nguyen",
-      "classId": "class-6a",
-      "assignmentId": "assign-1",
-      "listensUsed": 1,
-      "maxListens": 2,
-      "completed": false,
-      "answers": {},
-      "score": null,
-      "startedAt": "2026-09-04T05:30:06.789Z",
-      "completedAt": null
-    }
-  ]
+  "submissions": []
 }

@@ -1,4 +1,4 @@
-﻿{
+{
   "name": "cambridge-listening-tool",
   "version": "1.0.0",
   "description": "Cambridge Stage 6 Primary English Listening Comprehension Tool",
@@ -11,7 +11,6 @@
     "dev": "concurrently \"npm run dev:server\" \"npm run dev:client\""
   },
   "dependencies": {
-    "@google/genai": "^0.1.2",
     "concurrently": "^9.1.2",
     "cors": "^2.8.5",
     "dotenv": "^16.4.7",
