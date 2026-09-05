@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 
 export const SettingsTab: React.FC = () => {
   const [geminiApiKey, setGeminiApiKey] = useState<string>('');
@@ -67,7 +67,7 @@ export const SettingsTab: React.FC = () => {
             placeholder="New 4-digit PIN"
             className="w-full px-4 py-3 rounded-xl border border-slate-200 font-mono text-sm focus:border-blue-600"
           />
-          <p className="text-xs text-slate-400 mt-1">Default PIN is 1234.</p>
+          <p className="text-xs text-slate-400 mt-1">Enter a new PIN to change your dashboard access code.</p>
         </div>
 
         <button

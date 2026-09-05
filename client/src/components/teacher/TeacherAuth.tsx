@@ -1,4 +1,4 @@
-﻿import React, { useState } from 'react';
+import React, { useState } from 'react';
 import { Lock } from 'lucide-react';
 
 interface TeacherAuthProps {
@@ -37,7 +37,7 @@ export const TeacherAuth: React.FC<TeacherAuthProps> = ({ onSuccess }) => {
         </div>
         <h2 className="text-2xl font-black text-slate-900">Teacher Portal</h2>
         <p className="text-xs text-slate-500 mt-1 mb-6">
-          Enter your Teacher PIN to manage assignments and view student scores. (Default: 1234)
+          Enter your Teacher PIN to manage assignments and view student scores.
         </p>
 
         {authError && (
@@ -49,7 +49,7 @@ export const TeacherAuth: React.FC<TeacherAuthProps> = ({ onSuccess }) => {
         <form onSubmit={handlePinSubmit} className="space-y-4">
           <input
             type="password"
-            placeholder="Enter PIN (1234)"
+            placeholder="Enter Teacher PIN"
             value={pinInput}
             onChange={(e) => setPinInput(e.target.value)}
             className="w-full px-4 py-3 rounded-xl border-2 border-slate-200 text-center font-mono text-xl tracking-widest focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10"

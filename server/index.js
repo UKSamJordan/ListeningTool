@@ -175,7 +175,8 @@ app.post('/api/submit-quiz', (req, res) => {
 app.post('/api/teacher/auth', (req, res) => {
   const { pin } = req.body;
   const settings = db.getSettings();
-  if (pin === settings.teacherPin || pin === "1234") {
+  const activePin = (settings.teacherPin || "1234").trim();
+  if (pin && pin.trim() === activePin) {
     return res.json({ authenticated: true });
   }
   return res.status(401).json({ authenticated: false, error: "Incorrect Teacher PIN" });
