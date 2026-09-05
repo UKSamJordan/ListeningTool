@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Navbar } from './components/Navbar';
 import { StudentSelect } from './components/StudentSelect';
 import { AudioPlayerShield } from './components/AudioPlayerShield';
@@ -42,7 +42,7 @@ export function App() {
     if (selectedClass && selectedStudent) {
       fetchStudentState(selectedClass.id, selectedStudent.id);
     }
-  }, [selectedClass, selectedStudent]);
+  }, [selectedClass, selectedStudent, activeAssignment?.id]);
 
   const fetchStudentState = async (classId: string, studentId: string) => {
     try {
@@ -126,8 +126,21 @@ export function App() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(updated)
     });
-    const data = await res.json();
-    setActiveAssignment(data);
+    if (res.ok) {
+      const data = await res.json();
+      setActiveAssignment(data);
+      return data;
+    } else {
+      const err = await res.json().catch(() => ({ error: "Failed to save assignment" }));
+      throw new Error(err.error || "Failed to save assignment");
+    }
+  };
+
+  const handleSwitchView = (newView: 'student' | 'teacher') => {
+    setView(newView);
+    if (newView === 'student') {
+      fetchInitialData();
+    }
   };
 
   return (
@@ -135,7 +148,7 @@ export function App() {
       
       <Navbar
         currentView={view}
-        onSwitchView={setView}
+        onSwitchView={handleSwitchView}
         activeStudentName={selectedStudent?.name}
         activeClassName={selectedClass?.name}
         onResetStudent={handleResetActiveStudent}

@@ -60,20 +60,26 @@ app.get('/api/assignment/active', (req, res) => {
 });
 
 app.post('/api/assignment', (req, res) => {
-  const { title, youtubeUrl, showVideo, maxListens, instructions, questions } = req.body;
-  if (!youtubeUrl) {
-    return res.status(400).json({ error: "YouTube URL is required" });
+  const { title, youtubeUrl, showVideo, maxListens, instructions, questions, createNewId } = req.body;
+  if (youtubeUrl === undefined && title === undefined && questions === undefined && instructions === undefined) {
+    return res.status(400).json({ error: "Assignment data is required" });
   }
 
-  const updated = db.saveAssignment({
-    title: title || "Listening Comprehension Task",
-    youtubeUrl,
-    showVideo: Boolean(showVideo),
-    maxListens: Number(maxListens) || 2,
-    instructions: instructions || "Listen attentively to the audio track.",
-    questions: questions || []
-  });
+  const updateData = {};
+  if (title !== undefined) updateData.title = title.trim();
+  if (youtubeUrl !== undefined) {
+    if (!youtubeUrl.trim()) {
+      return res.status(400).json({ error: "YouTube URL cannot be empty" });
+    }
+    updateData.youtubeUrl = youtubeUrl.trim();
+  }
+  if (showVideo !== undefined) updateData.showVideo = Boolean(showVideo);
+  if (maxListens !== undefined) updateData.maxListens = Number(maxListens) || 2;
+  if (instructions !== undefined) updateData.instructions = instructions;
+  if (questions !== undefined && Array.isArray(questions)) updateData.questions = questions;
+  if (createNewId) updateData.createNewId = true;
 
+  const updated = db.saveAssignment(updateData);
   res.json(updated);
 });
 

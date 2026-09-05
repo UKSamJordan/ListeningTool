@@ -112,11 +112,26 @@ function getActiveAssignment() {
 
 function saveAssignment(assignmentData) {
   const db = readDb();
-  db.assignment = {
-    ...db.assignment,
+  const current = db.assignment || {};
+
+  // If the YouTube URL changed, or if explicitly requested, or if no ID exists, create a new assignment ID
+  const urlChanged = Boolean(
+    assignmentData.youtubeUrl &&
+    current.youtubeUrl &&
+    assignmentData.youtubeUrl.trim() !== current.youtubeUrl.trim()
+  );
+  const shouldNewId = !current.id || urlChanged || Boolean(assignmentData.createNewId);
+  const assignmentId = shouldNewId ? `assign-${Date.now()}` : current.id;
+
+  const merged = {
+    ...current,
     ...assignmentData,
+    id: assignmentId,
     updatedAt: new Date().toISOString()
   };
+  delete merged.createNewId;
+
+  db.assignment = merged;
   writeDb(db);
   return db.assignment;
 }

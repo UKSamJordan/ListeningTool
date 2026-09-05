@@ -1,4 +1,4 @@
-﻿import React, { useEffect, useRef, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Play, Pause, Volume2, VolumeX, AlertCircle, CheckCircle2, Lock, Radio } from 'lucide-react';
 
 interface AudioPlayerShieldProps {
@@ -17,11 +17,60 @@ declare global {
   }
 }
 
-function extractVideoId(url: string): string {
+export function extractVideoId(url: string | undefined | null): string {
   if (!url) return "wbNeIn3vVKM";
-  const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=|shorts\/)([^#\&\?]*).*/;
-  const match = url.match(regExp);
-  return (match && match[2].length === 11) ? match[2] : "wbNeIn3vVKM";
+  const trimmed = url.trim();
+  if (!trimmed) return "wbNeIn3vVKM";
+
+  // If already an 11-char ID
+  if (/^[a-zA-Z0-9_-]{11}$/.test(trimmed)) {
+    return trimmed;
+  }
+
+  try {
+    const urlObj = new URL(trimmed.startsWith('http') ? trimmed : `https://${trimmed}`);
+
+    // Query parameter ?v=
+    const vParam = urlObj.searchParams.get('v');
+    if (vParam && /^[a-zA-Z0-9_-]{11}$/.test(vParam)) {
+      return vParam;
+    }
+
+    // Shortened URL youtu.be/<id>
+    if (urlObj.hostname.includes('youtu.be')) {
+      const id = urlObj.pathname.replace(/^\/+/, '').split('/')[0];
+      if (id && /^[a-zA-Z0-9_-]{11}$/.test(id)) {
+        return id;
+      }
+    }
+
+    // Embed, Shorts, Live paths: /embed/<id>, /shorts/<id>, /live/<id>, /v/<id>
+    const pathParts = urlObj.pathname.split('/').filter(Boolean);
+    const triggerIndex = pathParts.findIndex(p => ['embed', 'shorts', 'live', 'v'].includes(p));
+    if (triggerIndex !== -1 && pathParts[triggerIndex + 1]) {
+      const candidate = pathParts[triggerIndex + 1];
+      if (/^[a-zA-Z0-9_-]{11}$/.test(candidate)) {
+        return candidate;
+      }
+    }
+  } catch (e) {
+    // Fallback if URL parsing fails
+  }
+
+  // Regex for standard formats
+  const regExp = /(?:youtu\.be\/|youtube\.com\/(?:embed\/|v\/|shorts\/|live\/|watch\?v=|watch\?.+&v=))([\w-]{11})/;
+  const match = trimmed.match(regExp);
+  if (match && match[1] && match[1].length === 11) {
+    return match[1];
+  }
+
+  // Search for any 11-char candidate in the string
+  const anyIdMatch = trimmed.match(/(?:^|[^a-zA-Z0-9_-])([a-zA-Z0-9_-]{11})(?:[^a-zA-Z0-9_-]|$)/);
+  if (anyIdMatch && anyIdMatch[1]) {
+    return anyIdMatch[1];
+  }
+
+  return "wbNeIn3vVKM";
 }
 
 export const AudioPlayerShield: React.FC<AudioPlayerShieldProps> = ({
@@ -50,37 +99,59 @@ export const AudioPlayerShield: React.FC<AudioPlayerShieldProps> = ({
     setLocalListens(listensUsed);
   }, [listensUsed]);
 
+  // Handle videoId or showVideo updates
   useEffect(() => {
+    if (!videoId) return;
+
+    // If player already exists and controls layout (showVideo) hasn't changed, cue the new video directly
+    if (playerRef.current && typeof playerRef.current.cueVideoById === 'function') {
+      try {
+        playerRef.current.cueVideoById(videoId);
+        setCurrentTime(0);
+        setIsPlaying(false);
+        setListenRecordedForCurrentPlay(false);
+        return;
+      } catch (e) {
+        // If cueing fails, fall through to re-init
+      }
+    }
+
     const initPlayer = () => {
       if (!window.YT || !window.YT.Player) return;
+      const target = document.getElementById('yt-player-instance');
+      if (!target) return;
 
-      playerRef.current = new window.YT.Player('yt-player-instance', {
-        videoId: videoId,
-        playerVars: {
-          controls: showVideo ? 1 : 0,
-          disablekb: showVideo ? 0 : 1,
-          fs: showVideo ? 1 : 0,
-          modestbranding: 1,
-          rel: 0,
-          playsinline: 1,
-        },
-        events: {
-          onReady: (event: any) => {
-            setDuration(event.target.getDuration() || 0);
+      try {
+        playerRef.current = new window.YT.Player('yt-player-instance', {
+          videoId: videoId,
+          playerVars: {
+            controls: showVideo ? 1 : 0,
+            disablekb: showVideo ? 0 : 1,
+            fs: showVideo ? 1 : 0,
+            modestbranding: 1,
+            rel: 0,
+            playsinline: 1,
           },
-          onStateChange: (event: any) => {
-            if (event.data === 1) {
-              setIsPlaying(true);
-            } else if (event.data === 2) {
-              setIsPlaying(false);
-            } else if (event.data === 0) {
-              setIsPlaying(false);
-              setListenRecordedForCurrentPlay(false);
-              if (onListenFinished) onListenFinished();
+          events: {
+            onReady: (event: any) => {
+              setDuration(event.target.getDuration() || 0);
+            },
+            onStateChange: (event: any) => {
+              if (event.data === 1) {
+                setIsPlaying(true);
+              } else if (event.data === 2) {
+                setIsPlaying(false);
+              } else if (event.data === 0) {
+                setIsPlaying(false);
+                setListenRecordedForCurrentPlay(false);
+                if (onListenFinished) onListenFinished();
+              }
             }
           }
-        }
-      });
+        });
+      } catch (err) {
+        console.error("Failed to initialize YT Player:", err);
+      }
     };
 
     if (!window.YT) {
@@ -92,13 +163,17 @@ export const AudioPlayerShield: React.FC<AudioPlayerShieldProps> = ({
     } else {
       initPlayer();
     }
+  }, [videoId, showVideo]);
 
+  // Clean up on component unmount
+  useEffect(() => {
     return () => {
-      if (playerRef.current && playerRef.current.destroy) {
+      if (playerRef.current && typeof playerRef.current.destroy === 'function') {
         try { playerRef.current.destroy(); } catch (e) {}
+        playerRef.current = null;
       }
     };
-  }, [videoId, showVideo]);
+  }, []);
 
   useEffect(() => {
     let interval: any = null;

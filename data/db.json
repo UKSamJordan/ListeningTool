@@ -210,9 +210,9 @@
     }
   ],
   "assignment": {
-    "id": "assign-1",
-    "title": "The Great Barrier Reef: Ocean Giants & Coral Wonders",
-    "youtubeUrl": "https://www.youtube.com/watch?v=wbNeIn3vVKM",
+    "id": "assign-1788582012879",
+    "title": "The Sorting Ceremony | Harry Potter and the Philosopher's Stone",
+    "youtubeUrl": "https://www.youtube.com/watch?v=z4K2F_OALPQ",
     "showVideo": false,
     "maxListens": 2,
     "instructions": "Listen attentively to the audio track. You have a maximum of 2 listens. When you are ready, answer all 10 Cambridge Stage 6 comprehension questions.",
@@ -221,135 +221,136 @@
     "questions": [
       {
         "id": "q1",
-        "question": "What is the primary natural habitat described in the audio?",
+        "question": "Which house is Susan Bones sorted into?",
         "options": [
-          "A tropical rainforest",
-          "A coral reef marine ecosystem",
-          "An arid desert canyon",
-          "A frozen polar ice shelf"
+          "Gryffindor",
+          "Slytherin",
+          "Hufflepuff",
+          "Ravenclaw"
         ],
-        "correctAnswer": "B",
-        "skill": "Direct Recall",
-        "explanation": "The speaker introduces the coral reef marine ecosystem as the central focus."
+        "correctAnswer": "C",
+        "skill": "Direct Retrieval",
+        "explanation": "In the transcript, right after Susan Bones is called, the Sorting Hat shouts 'Hufflepuff!'."
       },
       {
         "id": "q2",
-        "question": "According to the speaker, why are coral reefs often called the 'rainforests of the sea'?",
+        "question": "What object is placed on the students' heads to sort them into houses?",
         "options": [
-          "Because heavy rain falls on them every day",
-          "Because they contain an immense variety of marine biodiversity",
-          "Because tall seaweed trees grow out of them",
-          "Because freshwater rivers flow directly through them"
+          "A golden crown",
+          "The Sorting Hat",
+          "A magic wand",
+          "A velvet cap"
         ],
         "correctAnswer": "B",
-        "skill": "Inference & Detail",
-        "explanation": "Reefs support extraordinary biodiversity, matching the species richness of rainforests."
+        "skill": "Direct Retrieval",
+        "explanation": "The teacher states: 'I shall place the Sorting Hat on your head, and you will be sorted into your houses.'"
       },
       {
         "id": "q3",
-        "question": "What role do tiny algae (zooxanthellae) play in the survival of coral polyps?",
+        "question": "Who is sorted into Gryffindor right after the Sorting Hat says, 'Ha! Another Weasley'?",
         "options": [
-          "They clean the ocean surface from debris",
-          "They provide nutrients through photosynthesis",
-          "They act as shields against predator sharks",
-          "They freeze water to create solid rock"
+          "Harry Potter",
+          "Hermione Granger",
+          "Draco Malfoy",
+          "Ronald Weasley"
         ],
-        "correctAnswer": "B",
-        "skill": "Detail Retrieval",
-        "explanation": "The algae convert sunlight into essential food energy for the corals."
+        "correctAnswer": "D",
+        "skill": "Direct Retrieval",
+        "explanation": "The transcript shows: 'Ronald Weasley! Ha! Another Weasley. I know just what to do with you. Gryffindor!'"
       },
       {
         "id": "q4",
-        "question": "What meaning of the word 'vibrant' best matches its use in the description of the reef fish?",
+        "question": "In the teacher's instruction 'you will come forth', what does the word 'forth' mean?",
         "options": [
-          "Loud and noisy",
-          "Brightly coloured and lively",
-          "Dangerous and poisonous",
-          "Heavy and slow"
+          "Forward to the front",
+          "For the fourth time",
+          "Back to your seat",
+          "Outside the room"
         ],
-        "correctAnswer": "B",
+        "correctAnswer": "A",
         "skill": "Vocabulary in Context",
-        "explanation": "In Cambridge Stage 6 contexts, 'vibrant' describes brilliant, radiant colours and energetic life."
+        "explanation": "'Come forth' is a formal phrase meaning to step forward or come to the front."
       },
       {
         "id": "q5",
-        "question": "Which creature uses camouflage to blend seamlessly into the sandy seafloor?",
+        "question": "Ron says Hermione is 'Mental, that one'. What does 'mental' mean in this informal context?",
         "options": [
-          "The clownfish",
-          "The stingray and flatfish",
-          "The giant manta ray",
-          "The blue whale"
+          "Very polite",
+          "Crazy or strange",
+          "Extremely quiet",
+          "Good at sports"
         ],
         "correctAnswer": "B",
-        "skill": "Direct Recall",
-        "explanation": "Stingrays and flatfish use coloration to conceal themselves in sand."
+        "skill": "Vocabulary in Context",
+        "explanation": "In British informal speech, calling someone 'mental' means they are acting crazy, strange, or wild."
       },
       {
         "id": "q6",
-        "question": "What warning does the narrator give regarding rising ocean temperatures?",
+        "question": "The Sorting Hat says Harry has a 'thirst to prove yourself'. What does 'thirst' mean in this sentence?",
         "options": [
-          "Corals may undergo bleaching and lose their vital algae",
-          "Reefs will expand uncontrollably toward the shore",
-          "Fish will permanently abandon the oceans for rivers",
-          "The ocean water will evaporate completely"
+          "A need to drink water",
+          "A strong desire or eager wish",
+          "A fear of making mistakes",
+          "A dislike for hard work"
         ],
-        "correctAnswer": "A",
-        "skill": "Cause & Effect",
-        "explanation": "Warm waters stress corals, expelling algae and resulting in coral bleaching."
+        "correctAnswer": "B",
+        "skill": "Vocabulary in Context",
+        "explanation": "Here, 'thirst' is used metaphorically to mean a deep desire or eagerness to show one's abilities."
       },
       {
         "id": "q7",
-        "question": "What can be inferred about the narrator's tone throughout the presentation?",
+        "question": "Why does Harry repeatedly whisper 'Not Slytherin, not Slytherin'?",
         "options": [
-          "Bored and disinterested",
-          "Alarmist and aggressive",
-          "Passionate, informative, and inspiring",
-          "Humorous and silly"
+          "He wants to join his family in Slytherin.",
+          "He believes all dark or bad wizards belonged to Slytherin.",
+          "He thinks Slytherin is for older students only.",
+          "He was told Slytherin house has no room left."
         ],
-        "correctAnswer": "C",
-        "skill": "Tone & Perspective",
-        "explanation": "The presenter speaks with enthusiasm, scientific care, and conservation respect."
+        "correctAnswer": "B",
+        "skill": "Inference and Deduction",
+        "explanation": "Earlier in the clip, Ron remarks that 'There's not a witch or wizard who went bad who wasn't in Slytherin', influencing Harry's strong reluctance to be placed there."
       },
       {
         "id": "q8",
-        "question": "In the phrase 'fragile equilibrium', what does 'equilibrium' mean?",
+        "question": "What can we infer about the Sorting Hat's reaction to Ronald Weasley?",
         "options": [
-          "A state of balance",
-          "An aggressive conflict",
-          "A deep ocean trench",
-          "An ancient mystery"
+          "It finds Ron very confusing and difficult to place.",
+          "It instantly recognizes his family traits and knows where he belongs.",
+          "It wants to place Ron into Slytherin house.",
+          "It has never sorted a member of the Weasley family before."
         ],
-        "correctAnswer": "A",
-        "skill": "Vocabulary in Context",
-        "explanation": "Equilibrium means a delicate, interconnected balance in nature."
+        "correctAnswer": "B",
+        "skill": "Inference and Deduction",
+        "explanation": "By saying 'Ha! Another Weasley. I know just what to do with you,' the Hat shows it immediately recognizes the family and knows they belong in Gryffindor."
       },
       {
         "id": "q9",
-        "question": "Which of the following actions was recommended to help preserve coral reefs?",
+        "question": "What is the main purpose of the ceremony in this clip?",
         "options": [
-          "Collecting living corals as travel souvenirs",
-          "Reducing plastic waste and lowering carbon emissions",
-          "Introducing foreign predator species",
-          "Building deeper artificial marinas directly on reefs"
+          "To give out academic awards to students",
+          "To test the magical strength of new wizards",
+          "To divide new students into school houses",
+          "To choose a class leader for the year"
         ],
-        "correctAnswer": "B",
-        "skill": "Direct Recall",
-        "explanation": "Responsible conservation requires cutting carbon emissions and plastic pollution."
+        "correctAnswer": "C",
+        "skill": "Main Idea",
+        "explanation": "The main event described is placing the Sorting Hat on new students to sort them into Gryffindor, Slytherin, Hufflepuff, or Ravenclaw."
       },
       {
         "id": "q10",
-        "question": "What is the overall main purpose of this listening audio?",
+        "question": "What tone does the Sorting Hat use when talking to Harry Potter?",
         "options": [
-          "To advertise holiday resorts and diving equipment",
-          "To entertain listeners with fictional legends",
-          "To educate students on reef ecosystems and advocate for ocean protection",
-          "To criticize marine biologists"
+          "Thoughtful and persuasive",
+          "Angry and aggressive",
+          "Bored and uninterested",
+          "Silly and joking"
         ],
-        "correctAnswer": "C",
-        "skill": "Main Purpose",
-        "explanation": "The core aim is educational awareness and inspiring stewardship of marine habitats."
+        "correctAnswer": "A",
+        "skill": "Speaker's Tone",
+        "explanation": "The Hat carefully considers Harry's mind ('Hmmm... difficult, very difficult') and gently tries to persuade him ('Slytherin will help you on the way to greatness... Are you sure?')."
       }
-    ]
+    ],
+    "updatedAt": "2026-09-05T04:21:34.644Z"
   },
   "submissions": []
 }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Assignment } from '../../types';
-import { Sparkles, Check } from 'lucide-react';
+import { Sparkles, Check, Save, AlertCircle } from 'lucide-react';
 
 interface AssignmentTabProps {
   activeAssignment: Assignment | null;
@@ -21,6 +21,7 @@ export const AssignmentTab: React.FC<AssignmentTabProps> = ({
   const [questions, setQuestions] = useState<any[]>(activeAssignment?.questions || []);
   const [topicPrompt, setTopicPrompt] = useState<string>('');
   const [isGenerating, setIsGenerating] = useState<boolean>(false);
+  const [isSaving, setIsSaving] = useState<boolean>(false);
   const [saveSuccess, setSaveSuccess] = useState<string>('');
 
   useEffect(() => {
@@ -33,6 +34,17 @@ export const AssignmentTab: React.FC<AssignmentTabProps> = ({
       setQuestions(activeAssignment.questions || []);
     }
   }, [activeAssignment]);
+
+  const isDirty = Boolean(
+    activeAssignment && (
+      title !== (activeAssignment.title || '') ||
+      youtubeUrl.trim() !== (activeAssignment.youtubeUrl || '').trim() ||
+      showVideo !== (activeAssignment.showVideo || false) ||
+      maxListens !== (activeAssignment.maxListens || 2) ||
+      instructions !== (activeAssignment.instructions || '') ||
+      JSON.stringify(questions) !== JSON.stringify(activeAssignment.questions || [])
+    )
+  );
 
   const handleGenerateQuestions = async () => {
     if (!youtubeUrl) {
@@ -64,8 +76,8 @@ export const AssignmentTab: React.FC<AssignmentTabProps> = ({
         }
         if (data.success) {
           alert(data.hasTranscript 
-            ? `Success! 10 Cambridge Stage 6 questions were generated based directly on the actual audio transcript!` 
-            : `Generated 10 Cambridge Stage 6 questions!`
+            ? `Success! 10 Cambridge Stage 6 questions were generated based directly on the actual audio transcript! Remember to click 'Save & Publish' above to activate this for students.` 
+            : `Generated 10 Cambridge Stage 6 questions! Remember to click 'Save & Publish' above to activate this for students.`
           );
         }
       }
@@ -78,10 +90,11 @@ export const AssignmentTab: React.FC<AssignmentTabProps> = ({
 
   const handleSaveAssignment = async () => {
     setSaveSuccess('');
+    setIsSaving(true);
     try {
       await onUpdateAssignment({
         title,
-        youtubeUrl,
+        youtubeUrl: youtubeUrl.trim(),
         showVideo,
         maxListens: Number(maxListens) || 2,
         instructions,
@@ -92,21 +105,66 @@ export const AssignmentTab: React.FC<AssignmentTabProps> = ({
       onRefreshData();
     } catch (err) {
       alert("Failed to save assignment.");
+    } finally {
+      setIsSaving(false);
+    }
+  };
+
+  const handleQuickSaveVideo = async () => {
+    if (!youtubeUrl.trim()) return;
+    setSaveSuccess('');
+    setIsSaving(true);
+    try {
+      await onUpdateAssignment({
+        youtubeUrl: youtubeUrl.trim(),
+        title: title.trim() || undefined
+      });
+      setSaveSuccess("New video saved and published! Students will now hear this track.");
+      setTimeout(() => setSaveSuccess(''), 4000);
+      onRefreshData();
+    } catch (err) {
+      alert("Failed to save video.");
+    } finally {
+      setIsSaving(false);
     }
   };
 
   return (
     <div className="bg-white rounded-3xl p-6 sm:p-8 shadow-sm border border-slate-100 space-y-8">
-      <div>
-        <h2 className="text-2xl font-black text-slate-900">Assignment Configuration</h2>
-        <p className="text-xs text-slate-500 mt-1">
-          Configure the YouTube audio clip, toggle video visibility, and generate Cambridge Stage 6 questions.
-        </p>
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-100">
+        <div>
+          <div className="flex items-center gap-2.5">
+            <h2 className="text-2xl font-black text-slate-900">Assignment Configuration</h2>
+            {isDirty && (
+              <span className="text-xs font-bold px-2.5 py-1 rounded-full bg-amber-100 text-amber-800 border border-amber-300 flex items-center gap-1">
+                <AlertCircle className="w-3 h-3 text-amber-600" />
+                Unsaved Changes
+              </span>
+            )}
+          </div>
+          <p className="text-xs text-slate-500 mt-1">
+            Configure the YouTube audio clip, toggle video visibility, and generate Cambridge Stage 6 questions.
+          </p>
+        </div>
+
+        <button
+          type="button"
+          onClick={handleSaveAssignment}
+          disabled={isSaving}
+          className={`px-5 py-2.5 rounded-xl font-bold text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer ${
+            isDirty
+              ? 'bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/30 ring-2 ring-blue-500/20'
+              : 'bg-slate-900 hover:bg-slate-800 text-white'
+          }`}
+        >
+          <Save className="w-4 h-4" />
+          <span>{isSaving ? "Saving..." : "Save & Publish"}</span>
+        </button>
       </div>
 
       {saveSuccess && (
         <div className="p-4 rounded-2xl bg-emerald-50 border border-emerald-200 text-emerald-800 text-sm flex items-center gap-2">
-          <Check className="w-5 h-5 text-emerald-600" />
+          <Check className="w-5 h-5 text-emerald-600 flex-shrink-0" />
           <span>{saveSuccess}</span>
         </div>
       )}
@@ -124,15 +182,38 @@ export const AssignmentTab: React.FC<AssignmentTabProps> = ({
         </div>
 
         <div>
-          <label className="block text-xs font-bold text-slate-600 uppercase mb-1">YouTube Link</label>
-          <input
-            type="text"
-            value={youtubeUrl}
-            onChange={(e) => setYoutubeUrl(e.target.value)}
-            placeholder="https://www.youtube.com/watch?v=..."
-            className="w-full px-4 py-3 rounded-xl border border-slate-200 font-mono text-sm focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10"
-          />
-          <p className="text-xs text-slate-400 mt-1">Paste your YouTube video link here.</p>
+          <div className="flex items-center justify-between mb-1">
+            <label className="block text-xs font-bold text-slate-600 uppercase">YouTube Link</label>
+            {activeAssignment?.youtubeUrl && (
+              <span className="text-xs text-slate-400">
+                Active: <span className="font-mono text-blue-600 truncate max-w-[200px] inline-block align-bottom">{activeAssignment.youtubeUrl}</span>
+              </span>
+            )}
+          </div>
+          <div className="flex gap-2">
+            <input
+              type="text"
+              value={youtubeUrl}
+              onChange={(e) => setYoutubeUrl(e.target.value)}
+              placeholder="https://www.youtube.com/watch?v=..."
+              className="flex-1 px-4 py-3 rounded-xl border border-slate-200 font-mono text-sm focus:border-blue-600 focus:ring-4 focus:ring-blue-500/10"
+            />
+            <button
+              type="button"
+              onClick={handleQuickSaveVideo}
+              disabled={isSaving || !youtubeUrl.trim() || youtubeUrl.trim() === (activeAssignment?.youtubeUrl || '').trim()}
+              className={`px-4 py-2 rounded-xl text-xs font-bold transition flex items-center gap-1.5 flex-shrink-0 cursor-pointer ${
+                youtubeUrl.trim() && youtubeUrl.trim() !== (activeAssignment?.youtubeUrl || '').trim()
+                  ? 'bg-emerald-600 hover:bg-emerald-700 text-white shadow-sm'
+                  : 'bg-slate-100 text-slate-400 cursor-not-allowed'
+              }`}
+              title="Save and publish this YouTube link immediately"
+            >
+              <Check className="w-3.5 h-3.5" />
+              <span>Save Video</span>
+            </button>
+          </div>
+          <p className="text-xs text-slate-400 mt-1">Paste any YouTube link here. Click "Save Video" to immediately activate this clip for all students.</p>
         </div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 pt-2">
@@ -281,9 +362,10 @@ export const AssignmentTab: React.FC<AssignmentTabProps> = ({
           <button
             type="button"
             onClick={handleSaveAssignment}
-            className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-base shadow-xl transition cursor-pointer"
+            disabled={isSaving}
+            className="w-full py-4 rounded-2xl bg-blue-600 hover:bg-blue-700 text-white font-bold text-base shadow-xl transition cursor-pointer disabled:bg-blue-400"
           >
-            Save & Publish Assignment for Students
+            {isSaving ? "Publishing Assignment..." : "Save & Publish Assignment for Students"}
           </button>
         </div>
 
